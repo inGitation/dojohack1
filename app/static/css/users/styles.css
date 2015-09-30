@@ -1,0 +1,23 @@
+#wrapper {
+	width: 500px;
+	margin: auto;
+	margin-top: 25px;
+}
+
+form {
+	width: 200px;
+	display: inline-block;
+}
+
+form input {
+	display: block;
+	margin-bottom: 10px;
+}
+
+#wrapper div {
+	display: inline-block;
+	vertical-align: top;
+	border: 1px solid black;
+	padding-left: 10px;
+	margin-left: 10px
+}
