@@ -1,39 +1,107 @@
-<!DOCTYPE html>
 <html>
-	<head>
-		<title>Welcome</title>
-		<link rel="stylesheet" href="/static/css/users/styles.css" type="text/css">
-	</head>
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="http://mymaplist.com/js/vendor/TweenLite.min.js"></script>
+    <script>
+      $(document).ready(function(){
+      $(document).mousemove(function(e){
+         TweenLite.to($('body'),
+            .5,
+            { css:
+                {
+                    backgroundPosition: ""+ parseInt(event.pageX/8) + "px "+parseInt(event.pageY/'12')+"px, "+parseInt(event.pageX/'15')+"px "+parseInt(event.pageY/'15')+"px, "+parseInt(event.pageX/'30')+"px "+parseInt(event.pageY/'30')+"px"
+                }
+            });
+      });
+      });
+    </script>
+    <style>
+      body{
+        background: url(http://mymaplist.com/img/parallax/back.png);
+      	background-color: #444;
+        background: url(http://mymaplist.com/img/parallax/pinlayer2.png),url(http://mymaplist.com/img/parallax/pinlayer1.png),url(http://mymaplist.com/img/parallax/back.png);
+      }
+
+      .vertical-offset-100{
+        padding-top:100px;
+      }
+    </style>
+  </head>
 	<body>
-		<div id="wrapper">
-			<div>
-				<h1>Register:</h1>
-				<form action="/users/create" method="post">
-					First Name: <input type="text" name="first_name">
-					Last Name: <input type="text" name="last_name">
-					Alias: <input type="text" name="alias">
-					E-mail Address: <input type="text" name="email">
-					Password: <input type="password" name="password">
-					Confirm Password: <input type="password" name="password_validation">
-					Date of Birth (MMDDYYYY): <input type="text" name="birthdate">
-				<input type="submit" value="Register">
-				</form>
+		<div class="container">
+			<div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+					<div class="panel panel-info" >
+									<div class="panel-heading">
+											<div class="panel-title">Sign In</div>
+											<div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="#">Forgot password?</a></div>
+									</div>
+
+									<div style="padding-top:30px" class="panel-body" >
+
+											<div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+
+											<form action="/login" method="post" id="loginform" class="form-horizontal" role="form">
+
+													<div style="margin-bottom: 25px" class="input-group">
+																			<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+																			<input id="login-username" type="text" class="form-control" name="username" value="" placeholder="username or email">
+																	</div>
+
+													<div style="margin-bottom: 25px" class="input-group">
+																			<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+																			<input id="login-password" type="password" class="form-control" name="password" placeholder="password">
+																	</div>
+
+
+
+													<div class="input-group">
+																		<div class="checkbox">
+																			<label>
+																				<input id="login-remember" type="checkbox" name="remember" value="1"> Remember me
+																			</label>
+																		</div>
+																	</div>
+
+
+															<div style="margin-top:10px" class="form-group">
+																	<!-- Button -->
+
+																	<div class="col-sm-12 controls">
+																		<input type="submit" class="btn btn-success" value="Login">
+
+																	</div>
+															</div>
+
+
+															<div class="form-group">
+																	<div class="col-md-12 control">
+																			<div style="border-top: 1px solid#888; padding-top:15px; font-size:85%" >
+																					Don't have an account!
+																			<a href="/signup_page">
+																					Sign Up Here
+																			</a>
+																			</div>
+																	</div>
+															</div>
+													</form>
+													{% with messages = get_flashed_messages() %}
+														{% if messages %}
+															<ul class=flashes>
+															{% for message in messages %}
+																<li>{{ message }}</li>
+															{% endfor %}
+															</ul>
+														{% endif %}
+													{% endwith %}
+
+
+
+											</div>
+									</div>
 			</div>
-			<div>
-				<h1>Log In:</h1>
-				<form action="/login" method="post">
-					E-mail Address: <input type="text" name="email">
-					Password: <input type="password" name="password">
-				<input type="submit" value="Log In">
-				</form>
-			</div>
-			{% with messages = get_flashed_messages() %}
-				{% if messages %}
-					{% for message in messages %}
-						<p>{{message}}</p>
-					{% endfor %}
-				{% endif %}
-			{% endwith %}
-		</div>
+
+	</div>
+
+
 	</body>
 </html>
