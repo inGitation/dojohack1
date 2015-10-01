@@ -6,5 +6,11 @@
 	<body>
 		<a href="/logout">Log Out</a>
 		<h1>{{session['id']}} {{session['alias']}}</h1>
+		<form action="/find_location" method="get">
+			<button type="submit">Find Locations/Events</button>
+		</form>
+		<form action="/set_location" method="get">
+			<button type="submit">Set Your Location</button>
+		</form>
 	</body>
 </html>

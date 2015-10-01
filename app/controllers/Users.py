@@ -56,3 +56,9 @@ class Users(Controller):
 		session.pop('id')
 		session.pop('alias')
 		return redirect('/')
+
+	def find_location(self):
+		return self.load_view('/location/get_location.html')
+
+	def set_location(self):
+		return self.load_view('/location/set_location.html')
