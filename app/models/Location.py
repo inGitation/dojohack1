@@ -16,3 +16,8 @@ class Location(Model):
         query = "SELECT * FROM locations"
         locations = self.db.query_db(query)
         return locations
+
+    def get_location(self, id):
+        query = "SELECT location FROM locations WHERE user_id != (%s)"
+        data = [id]
+        return self.db.query_db(query,data)

@@ -43,18 +43,31 @@ class Users(Controller):
 		}
 
 		login_status = self.models['User'].login_user(user_info)
+		login_status
 
 		if login_status['status'] == True:
 			session['id'] = login_status['user']['id']
 			session['alias'] = login_status['user']['alias']
+
 			return redirect('/users/landing_page')
 		else:
 			for message in login_status['errors']:
 				flash(message, 'regis_errors')
 		return redirect('/')
 
+	def edit(self,id):
+		users = self.models['User'].get_user_by_id(id)
+		return self.load_view("/users/edit.html",users = users)
+
+	def delete(self,id):
+		self.models['User'].delete_user(id)
+		session.pop('id')
+		session.pop('alias')
+		return redirect('/')
+
 	def landing_page(self):
-		return self.load_view('/users/landing_page.html')
+		user = self.models['User'].get_user_by_id(session['id'])
+		return self.load_view('/users/landing_page.html', user=user)
 
 	def logout(self):
 		session.pop('id')
@@ -77,3 +90,9 @@ class Users(Controller):
 		lat_and_long = coords.split(",")
 		self.models['Location'].add_location(id, lat_and_long, event)
 		return redirect('/find_location')
+
+	def people_near_me(self):
+		id = session['id']
+		locations = self.models['Location'].get_location(id)
+		print locations
+		return jsonify(locations=locations)
