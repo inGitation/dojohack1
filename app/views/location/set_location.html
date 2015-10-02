@@ -13,11 +13,13 @@
 			};
 
 	    var currentPosition;
+	    var current_coordinates;
 
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
           currentPosition = {lat: position.coords.latitude, lng: position.coords.longitude};
-          console.log(currentPosition)
+          current_coordinates = [currentPosition['lat'], currentPosition['lng']];
+          console.log(current_coordinates + " So now we saved them!");
         });
       };
 
@@ -39,15 +41,14 @@
 			    title: 'Your current location',
 			    draggable: true
 		    });
-  
-  			var current_coordinates;
 
 				google.maps.event.addListener(marker, 'dragend', function(evt){
+					infowindow.close();
 					console.log(evt.latLng.lat().toFixed(3), evt.latLng.lng().toFixed(3))
 					var current_coordinates = [evt.latLng.lat().toFixed(3), evt.latLng.lng().toFixed(3)]
 					console.log(current_coordinates);
 					var contentString = "<div id='content'><p>First drag the marker to your current location, then click the submission button.</p><form action='/users/set/{{user['id']}}/" + current_coordinates + "' method='get'><input id='infowindow' type='submit' value='Submit Location'></form></div>";
-					var infowindow = new google.maps.InfoWindow({
+					infowindow = new google.maps.InfoWindow({
 				    content: contentString,
 				    maxWidth: 200
 				  });
