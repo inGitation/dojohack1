@@ -56,8 +56,8 @@ class Users(Controller):
 		return redirect('/')
 
 	def edit(self,id):
-		users = self.models['User'].get_user_by_id(id)
-		return self.load_view("/users/edit.html",users = users)
+		user = self.models['User'].get_user_by_id(id)
+		return self.load_view("/users/edit.html",user = user)
 
 	def delete(self,id):
 		self.models['User'].delete_user(id)
@@ -90,6 +90,14 @@ class Users(Controller):
 		lat_and_long = coords.split(",")
 		self.models['Location'].add_location(id, lat_and_long, event)
 		return redirect('/find_location')
+
+	def update(self, id):
+		info = {
+			'alias': request.form['alias'],
+			'email': request.form['email']
+		}
+		self.models['User'].update_user(id, info)
+		return redirect('/users/landing_page')
 
 	# def people_near_me(self):
 	# 	id = session['id']

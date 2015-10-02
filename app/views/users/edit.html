@@ -1,7 +1,53 @@
 <html>
   <head>
+  	<style>
+  		#wrapper {
+  			width: 300px;
+  			border: 1px solid black;
+  			margin: auto;
+  			padding-top: 5px;
+  		}
+
+  		h1 {
+  			margin-left: 60px;
+  		}
+
+  		p, form {
+  			margin-left: 60px;
+  		}
+
+  		p span {
+  			font-weight: bold;
+  		}
+
+  		input {
+  			display: block;
+  			margin-top: 10px;
+  			margin-bottom: 10px;
+  		}
+
+  		#update_button {
+  			margin-top: 20px;
+  		}
+
+  		#logout {
+  			margin-left: 60px;
+  			border-right: 2px solid black;
+  			padding-right: 5px;
+  		}
+  	</style>
   </head>
   <body>
-    <p>Edit page</p>
+  	<div id="wrapper">
+  		<a id="logout" href="/logout">Log Out</a>
+  		<a href="/users/landing_page">Back to Homepage</a>
+	    <h1>Edit Profile:</h1>
+	    <p><span>Name:</span> {{user['first_name']}} {{user['last_name']}}</p>
+	    <form action="/update/{{user['id']}}" method="post">
+	    	Alias: <input type="text" name="alias" value="{{user['alias']}}">
+	    	Email: <input type="text" name="email" value="{{user['email']}}">
+	    	<input id="update_button" type="submit" value="Update Profile">
+	    </form>
+	</div>
   </body>
 </html>

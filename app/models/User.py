@@ -85,3 +85,8 @@ class User(Model):
 		self.db.query_db(query2, data)
 		query= "DELETE FROM users WHERE id = %s"
 		self.db.query_db(query, data)
+
+	def update_user(self, id, info):
+		query = "UPDATE users SET alias=%s, email=%s WHERE id = %s"
+		data = [info['alias'], info['email'], id]
+		self.db.query_db(query, data)
