@@ -20,9 +20,12 @@ routes['default_controller'] = 'Users'
 routes['GET']['/users/landing_page'] = 'Users#landing_page'
 routes['GET']['/logout'] = 'Users#logout'
 routes['POST']['/login'] = 'Users#login'
+routes['POST']['/signup'] = 'Users#create'
+routes['GET']['/signup_page'] = 'Users#signup_page'
 routes['GET'] ['/find_location'] = 'Users#find_location'
 routes['GET']['/set_location'] = 'Users#set_location'
 routes['GET']['/users/set/<id>/<coords>'] = 'Users#set'
+routes['GET']['/login_page'] = 'Users#index'
 
 """
     You can add routes and specify their handlers as follows:

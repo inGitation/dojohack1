@@ -10,6 +10,9 @@ class Users(Controller):
 			return redirect('/users/landing_page')
 		return self.load_view('users/index.html')
 
+	def signup_page(self):
+		return self.load_view('users/login.html')
+
 	def create(self):
 		user_info = {
 			'alias': request.form['alias'],
@@ -30,11 +33,11 @@ class Users(Controller):
 		else:
 			for message in create_status['errors']:
 				flash(message, 'regis_errors')
-		return redirect('/')
+		return redirect('/signup_page')
 
 	def login(self):
 		user_info = {
-			'email': request.form['email'],
+			'email': request.form['username'],
 			'password': request.form['password']
 		}
 
