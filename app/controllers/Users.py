@@ -3,7 +3,8 @@ from system.core.controller import *
 class Users(Controller):
 	def __init__(self, action):
 		super(Users, self).__init__(action)
-		self.load_model('User')
+		self.load_model('User'),
+		self.load_model('Location')
 
 	def index(self):
 		if 'id' in session:
@@ -53,7 +54,7 @@ class Users(Controller):
 		return redirect('/')
 
 	def landing_page(self):
-		return self.load_view('users/landing_page.html')
+		return self.load_view('/users/landing_page.html')
 
 	def logout(self):
 		session.pop('id')
@@ -71,4 +72,9 @@ class Users(Controller):
 	def set(self, id, coords):
 		print id + " here is the IDDDDDDDD!!!!!!!!!!!!!"
 		print "And the CURRENT COORDINATES ARE:" + coords
-		return redirect('/')
+		user = self.models['Location'].set_locat(id,coords)
+		return redirect('/users/landing_page')
+
+	def get(self,id,coords):
+		user = self.models['Location'].get_location(id,coords)
+		return redirect('/users/landing_page')
