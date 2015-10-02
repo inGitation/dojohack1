@@ -27,6 +27,9 @@
           center: currentPosition,
           zoom: 12
         });
+
+        var new_coords = document.getElementById('coord_list');
+				console.log("HERE ARE THE NEW COORDS" + new_coords.value)
       }
     </script>
     <script>
@@ -44,5 +47,8 @@
   </head>
   <body>
     <div id="map"></div>
+    <form>
+    	<input id="coord_list" type="hidden" value="{{locations}}" name="hidden_coords">
+	  </form>
   </body>
 </html>

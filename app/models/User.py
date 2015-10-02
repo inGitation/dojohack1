@@ -74,7 +74,14 @@ class User(Model):
 		return {"status": False, "errors": errors}
 
 	def get_user_by_id(self, id):
-		select_query = "SELECT users.id, users.alias FROM users WHERE id = %s"
+		select_query = "SELECT users.id, users.alias ,users.email FROM users WHERE id = %s"
 		data = [id]
 		user = self.db.query_db(select_query, data)
 		return user[0]
+
+	def delete_user(self,id):
+		query= "DELETE FROM users WHERE id = %s"
+		data = [id]
+		self.db.query_db(query, data)
+		query2 = "DELETE FROM locations WHERE user_id = %s"
+		self.db.query_db(query2, data)

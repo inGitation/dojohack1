@@ -26,6 +26,8 @@ routes['GET'] ['/find_location'] = 'Users#find_location'
 routes['GET']['/set_location'] = 'Users#set_location'
 routes['GET']['/users/set/<id>/<coords>'] = 'Users#set'
 routes['GET']['/login_page'] = 'Users#index'
+routes['GET']['/users/edit/<id>'] = 'Users#edit'
+routes['GET']['/users/delete/<id>'] = 'Users#delete'
 routes['GET']['/people_near_me'] = 'Users#people_near_me'
 
 """

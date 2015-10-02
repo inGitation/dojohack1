@@ -3,7 +3,7 @@ from system.core.controller import *
 class Users(Controller):
 	def __init__(self, action):
 		super(Users, self).__init__(action)
-		self.load_model('User'),
+		self.load_model('User')
 		self.load_model('Location')
 
 	def index(self):
@@ -43,18 +43,31 @@ class Users(Controller):
 		}
 
 		login_status = self.models['User'].login_user(user_info)
+		login_status
 
 		if login_status['status'] == True:
 			session['id'] = login_status['user']['id']
 			session['alias'] = login_status['user']['alias']
+
 			return redirect('/users/landing_page')
 		else:
 			for message in login_status['errors']:
 				flash(message, 'regis_errors')
 		return redirect('/')
 
+	def edit(self,id):
+		users = self.models['User'].get_user_by_id(id)
+		return self.load_view("/users/edit.html",users = users)
+
+	def delete(self,id):
+		self.models['User'].delete_user(id)
+		session.pop('id')
+		session.pop('alias')
+		return redirect('/')
+
 	def landing_page(self):
-		return self.load_view('/users/landing_page.html')
+		user = self.models['User'].get_user_by_id(session['id'])
+		return self.load_view('/users/landing_page.html', user=user)
 
 	def logout(self):
 		session.pop('id')
@@ -62,7 +75,9 @@ class Users(Controller):
 		return redirect('/')
 
 	def find_location(self):
-		return self.load_view('/location/get_location.html')
+		print "AND WE GOT TO THE FIND LOCATION METHOD!"
+		locations = self.models['Location'].get_all_locations()
+		return self.load_view('/location/get_location.html', locations=locations)
 
 	def set_location(self):
 		user = self.models['User'].get_user_by_id(session['id'])
@@ -70,10 +85,9 @@ class Users(Controller):
 		return self.load_view('/location/set_location.html', user=user)
 
 	def set(self, id, coords):
-		print id + " here is the IDDDDDDDD!!!!!!!!!!!!!"
-		print "And the CURRENT COORDINATES ARE:" + coords
-		user = self.models['Location'].set_locat(id,coords)
-		return redirect('/users/landing_page')
+		lat_and_long = coords.split(",")
+		self.models['Location'].add_location(id, lat_and_long)
+		return redirect('/find_location')
 
 	def people_near_me(self):
 		id = session['id']

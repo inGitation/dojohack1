@@ -3,14 +3,44 @@
 	<head>
 		<title>Landing Page</title>
 	</head>
+	<style>
+		/*body{
+			background-image: url("https://d13yacurqjgara.cloudfront.net/users/52793/screenshots/750457/map_marker_pointer_icons_k.png");
+		}*/
+		body{
+			margin:100px;
+		}
+		#profile{
+			border :1px solid red;
+			width: 35%;
+			padding: 5px;
+		}
+		label{
+			font-size: 20px;
+		}
+		#buttons{
+			margin-top: 20px;
+		}
+	</style>
 	<body>
 		<a href="/logout">Log Out</a>
-		<h1>Welcome, {{session['alias']}}!</h1>
+		<h1>Welcome, {{user['alias']}}!</h1>
+		<div id="profile">
+			<h2>Profile</h2>
+			<label>Name: {{user['alias']}}</label><br>
+			<label>First Name: {{user['first_name']}}</label><br>
+			<label>Last Name: {{user['last_name']}}</label><br>
+			<label>Email: {{user['email']}}</label><br>
+			<p><a href="/users/edit/{{user['id']}}">Edit Profile</p>
+			<p><a href="/users/delete/{{user['id']}}">Delete Profile</p>
+		</div>
+		<div id="buttons">
 		<form action="/find_location" method="get">
 			<button type="submit">Find Locations/Events</button>
 		</form>
 		<form action="/set_location" method="get">
 			<button type="submit">Set Your Location</button>
 		</form>
+	</div>
 	</body>
 </html>
