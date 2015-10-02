@@ -75,6 +75,8 @@ class Users(Controller):
 		user = self.models['Location'].set_locat(id,coords)
 		return redirect('/users/landing_page')
 
-	def get(self,id,coords):
-		user = self.models['Location'].get_location(id,coords)
-		return redirect('/users/landing_page')
+	def people_near_me(self):
+		id = session['id']
+		locations = self.models['Location'].get_location(id)
+		print locations
+		return jsonify(locations=locations)

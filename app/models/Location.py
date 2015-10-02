@@ -11,7 +11,7 @@ class Location(Model):
         data = [coords,id]
         return self.db.query_db(query, data)
 
-    def get_location(self,id,coords):
+    def get_location(self,id):
         query ="SELECT location FROM locations WHERE user_id != (%s)"
-        data = [coords,id]
+        data = [id]
         return self.db.query_db(query,data)

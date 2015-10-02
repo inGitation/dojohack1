@@ -26,6 +26,7 @@ routes['GET'] ['/find_location'] = 'Users#find_location'
 routes['GET']['/set_location'] = 'Users#set_location'
 routes['GET']['/users/set/<id>/<coords>'] = 'Users#set'
 routes['GET']['/login_page'] = 'Users#index'
+routes['GET']['/people_near_me'] = 'Users#people_near_me'
 
 """
     You can add routes and specify their handlers as follows:

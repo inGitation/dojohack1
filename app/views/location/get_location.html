@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Find Location</title>
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAR-WNMIRg1eqVa99ek8XKGvDU2Y2M1i9k&callback=initMap">
     </script>
     <script type="text/javascript">
@@ -27,6 +28,14 @@
           zoom: 12
         });
       }
+    </script>
+    <script>
+      $(document).ready(function(){
+        $.get('http://localhost:5000/people_near_me', function(res){
+          // Write code that will use the json output to put stuff on the map.
+          console.log(res);
+        });
+      });
     </script>
     <style type="text/css">
       body { height: 500px; width: 500px; margin: auto; padding: 0; }
