@@ -37,6 +37,14 @@
 
 			display: inline-block;
 		}
+
+		h1 {
+			margin-left: 360px;
+		}
+
+		#logoutbutton {
+			margin-left: -375px;
+		}
 	</style>
 	<body>
 		<div id="header">
@@ -44,7 +52,7 @@
 			<h1>Welcome, {{user['alias']}}!</h1>
 		</div>
 		<div id="logout">
-			<a href="/logout">Log Out</a>
+			<a id="logoutbutton" href="/logout">Log Out</a>
 		</div>
 	</div>
 		<div id="profile">
