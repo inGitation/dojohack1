@@ -72,3 +72,9 @@ class User(Model):
 
 		errors = ["Not a valid e-mail/password combination."]
 		return {"status": False, "errors": errors}
+
+	def get_user_by_id(self, id):
+		select_query = "SELECT users.id, users.alias FROM users WHERE id = %s"
+		data = [id]
+		user = self.db.query_db(select_query, data)
+		return user[0]

@@ -1,8 +1,39 @@
+<!DOCTYPE html>
 <html>
   <head>
     <title>Find Location</title>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAR-WNMIRg1eqVa99ek8XKGvDU2Y2M1i9k&callback=initMap">
+    </script>
+    <script type="text/javascript">
+			window.onload = function() {
+				if(!window.location.hash) {
+					window.location = window.location + '#?';
+					window.location.reload();
+				}
+			};
+
+	    var currentPosition;
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+          currentPosition = {lat: position.coords.latitude, lng: position.coords.longitude};
+          console.log(currentPosition)
+        });
+      };
+
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: currentPosition,
+          zoom: 12
+        });
+      }
+    </script>
+    <style type="text/css">
+      body { height: 500px; width: 500px; margin: auto; padding: 0; }
+      #map { height: 100%; }
+    </style>
   </head>
   <body>
-    <p>Find Location page</p>
+    <div id="map"></div>
   </body>
 </html>

@@ -22,6 +22,8 @@ routes['GET']['/logout'] = 'Users#logout'
 routes['POST']['/login'] = 'Users#login'
 routes['GET'] ['/find_location'] = 'Users#find_location'
 routes['GET']['/set_location'] = 'Users#set_location'
+routes['GET']['/users/set/<id>/<coords>'] = 'Users#set'
+
 """
     You can add routes and specify their handlers as follows:
 

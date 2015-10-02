@@ -61,4 +61,11 @@ class Users(Controller):
 		return self.load_view('/location/get_location.html')
 
 	def set_location(self):
-		return self.load_view('/location/set_location.html')
+		user = self.models['User'].get_user_by_id(session['id'])
+		print user
+		return self.load_view('/location/set_location.html', user=user)
+
+	def set(self, id, coords):
+		print id + " here is the IDDDDDDDD!!!!!!!!!!!!!"
+		print "And the CURRENT COORDINATES ARE:" + coords
+		return redirect('/')

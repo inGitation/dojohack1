@@ -1,8 +1,74 @@
+<!DOCTYPE html>
 <html>
   <head>
     <title>Set Location</title>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAR-WNMIRg1eqVa99ek8XKGvDU2Y2M1i9k&callback=initMap">
+    </script>
+    <script type="text/javascript">
+			window.onload = function() {
+				if(!window.location.hash) {
+					window.location = window.location + '#?';
+					window.location.reload();
+				}
+			};
+
+	    var currentPosition;
+	      if (navigator.geolocation) {
+	        navigator.geolocation.getCurrentPosition(function (position) {
+	          currentPosition = {lat: position.coords.latitude, lng: position.coords.longitude};
+	          console.log(currentPosition)
+	        });
+	      };
+
+	      var map;
+	      function initMap() {
+	        map = new google.maps.Map(document.getElementById('map'), {
+	          center: currentPosition,
+	          zoom: 14,
+	          mapTypeControl: true,
+					  mapTypeControlOptions: {
+					    style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+					  }
+	        });
+
+	        var current_coordinates = "" + currentPosition['lat'] + "," + currentPosition['lng']
+	        var contentString = "<div id='content'><p>First drag the marker to your current location, then click the submission button.</p><form action='/users/set/{{user['id']}}/" + current_coordinates + "' method='get'><input id='infowindow' type='submit' value='Submit Location'></form></div>";
+
+	        var infowindow = new google.maps.InfoWindow({
+				    content: contentString,
+				    maxWidth: 200
+				  });
+
+	        var marker = new google.maps.Marker({
+						position: currentPosition,
+				    map: map,
+				    title: 'Your current location',
+				    draggable: true
+			    });
+
+					marker.addListener('click', function() {
+						infowindow.open(map, marker);
+					});
+
+					google.maps.event.trigger( marker, 'click' );
+
+					google.maps.event.addListener(marker, 'dragend', function(evt){
+						console.log(evt.latLng.lat().toFixed(3), evt.latLng.lng().toFixed(3))
+						current_coordinates = [evt.latLng.lat().toFixed(3), evt.latLng.lng().toFixed(3)]
+						infowindow.open(map, marker);
+					});
+
+					google.maps.event.addListener(marker, 'drag', function(evt){
+				    console.log("marker is being dragged");
+					}); 
+	      };
+    </script>
+    <style type="text/css">
+      body { height: 500px; width: 500px; margin: auto; padding: 0; }
+      #map { height: 100%; }
+    </style>
   </head>
   <body>
-    <p>Set Location page</p>
+    <div id="map"></div>
   </body>
 </html>
