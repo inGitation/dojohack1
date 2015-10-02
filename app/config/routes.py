@@ -24,7 +24,7 @@ routes['POST']['/signup'] = 'Users#create'
 routes['GET']['/signup_page'] = 'Users#signup_page'
 routes['GET'] ['/find_location'] = 'Users#find_location'
 routes['GET']['/set_location'] = 'Users#set_location'
-routes['GET']['/users/set/<id>/<coords>'] = 'Users#set'
+routes['POST']['/users/set/<id>/<coords>'] = 'Users#set'
 routes['GET']['/login_page'] = 'Users#index'
 
 """

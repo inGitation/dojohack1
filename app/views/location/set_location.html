@@ -47,7 +47,7 @@
 					console.log(evt.latLng.lat().toFixed(3), evt.latLng.lng().toFixed(3))
 					var current_coordinates = [evt.latLng.lat().toFixed(3), evt.latLng.lng().toFixed(3)]
 					console.log(current_coordinates);
-					var contentString = "<div id='content'><p>First drag the marker to your current location, then click the submission button.</p><form action='/users/set/{{user['id']}}/" + current_coordinates + "' method='get'><input id='infowindow' type='submit' value='Submit Location'></form></div>";
+					var contentString = "<div id='content'><p>First drag the marker to your current location, then click the submission button.</p><form action='/users/set/{{user['id']}}/" + current_coordinates + "' method='post'><input type='text' name='event' placeholder='What are you doing?'><input id='infowindow' type='submit' value='Submit Location'></form></div>";
 					infowindow = new google.maps.InfoWindow({
 				    content: contentString,
 				    maxWidth: 200
@@ -55,7 +55,7 @@
 					infowindow.open(map, marker);
 				});
 
-				var contentString = "<div id='content'><p>First drag the marker to your current location, then click the submission button.</p><form action='/users/set/{{user['id']}}/" + current_coordinates + "' method='get'><input id='infowindow' type='submit' value='Submit Location'></form></div>";
+				var contentString = "<div id='content'><p>First drag the marker to your current location, then click the submission button.</p><form action='/users/set/{{user['id']}}/" + current_coordinates + "' method='post'><input type='text' name='event' placeholder='What are you doing?'><input id='infowindow' type='submit' value='Submit Location'></form></div>";
 
 
 				var infowindow = new google.maps.InfoWindow({
@@ -68,7 +68,7 @@
 				}); 
 
 				marker.addListener('click', function() {
-					var contentString = "<div id='content'><p>First drag the marker to your current location, then click the submission button.</p><form action='/users/set/{{user['id']}}/" + current_coordinates + "' method='get'><input id='infowindow' type='submit' value='Submit Location'></form></div>";
+					var contentString = "<div id='content'><p>First drag the marker to your current location, then click the submission button.</p><form action='/users/set/{{user['id']}}/" + current_coordinates + "' method='post'><input type='text' name='event' placeholder='What are you doing?'><input id='infowindow' type='submit' value='Submit Location'></form></div>";
 					infowindow.open(map, marker);
 				});
 
@@ -81,6 +81,7 @@
     </style>
   </head>
   <body>
+  	<a href="/users/landing_page">Back to Homepage</a>
     <div id="map"></div>
   </body>
 </html>

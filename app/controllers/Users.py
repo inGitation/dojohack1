@@ -73,6 +73,7 @@ class Users(Controller):
 		return self.load_view('/location/set_location.html', user=user)
 
 	def set(self, id, coords):
+		event = request.form['event']
 		lat_and_long = coords.split(",")
-		self.models['Location'].add_location(id, lat_and_long)
+		self.models['Location'].add_location(id, lat_and_long, event)
 		return redirect('/find_location')

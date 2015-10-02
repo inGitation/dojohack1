@@ -24,10 +24,12 @@
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
           center: currentPosition,
-          zoom: 12
+          zoom: 12,
+          mapTypeControl: true,
+				  mapTypeControlOptions: {
+				    style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+				  }
         });
-
-        var new_coords = document.getElementById('coord_list').value;
 				
 				var gmarkers = [];
 
@@ -46,27 +48,10 @@
 					return newmarker;
 				}
 
-				console.log(new_coords)
-
 				{% for i in range(0, length_locations) %}
-    		var newmarker = createMarker(new google.maps.LatLng({{locations[i]['latitude']}}, {{locations[i]['longitude']}}), "<p>" + {{locations[i]['user_id']}} + " is the id of the user</p>");
+	    		var newmarker = createMarker(new google.maps.LatLng({{locations[i]['latitude']}}, {{locations[i]['longitude']}}), "<p>{{locations[i]['event']}}</p><p>" + "{{locations[i]['display_time']}}" + "</p>");
 					gmarkers.push(newmarker);
-    	{% endfor %}
-
-				// for (var i = 0; i < new_coords.length; i ++) {
-				// 	console.log(i);
-				// 	var data = new_coords[i];
-				// 	var newmarker = new google.maps.Marker({
-				// 		position: new google.maps.LatLng (data['latitude'], data['longitude']),
-				// 		map: map,
-				// 		title: data['user_id'],
-				// 	});
-				// }
-
-				// for (var i = 0; i < new_coords.length; i++) {
-				// 	gmarkers[new_coords[i][0]] =
-				// 	createMarker(new google.maps.LatLng(new_coords[i]['latitude'], new_coords[i]['longitude']), "<p>" + new_coords[i]['user_id'] + " is the id of the user</p>");
-				// }
+	    	{% endfor %}
 
       }
     </script>
@@ -76,9 +61,7 @@
     </style>
   </head>
   <body>
+  	<a href="/users/landing_page">Back to Homepage</a>
     <div id="map"></div>
-    <form>
-    	<input id="coord_list" type="hidden" value="{{locations}}" name="hidden_coords">
-	  </form>
   </body>
 </html>
