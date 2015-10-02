@@ -91,8 +91,8 @@ class Users(Controller):
 		self.models['Location'].add_location(id, lat_and_long, event)
 		return redirect('/find_location')
 
-	def people_near_me(self):
-		id = session['id']
-		locations = self.models['Location'].get_location(id)
-		print locations
-		return jsonify(locations=locations)
+	# def people_near_me(self):
+	# 	id = session['id']
+	# 	locations = self.models['Location'].get_location(id)
+	# 	print locations
+	# 	return jsonify(locations=locations)
