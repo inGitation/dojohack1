@@ -27,8 +27,47 @@
           zoom: 12
         });
 
-        var new_coords = document.getElementById('coord_list');
-				console.log("HERE ARE THE NEW COORDS" + new_coords.value)
+        var new_coords = document.getElementById('coord_list').value;
+				
+				var gmarkers = [];
+
+				var newinfowindow = new google.maps.InfoWindow();
+
+				function createMarker(latlng, html) {
+					var newmarker = new google.maps.Marker({
+						position: latlng,
+						map: map
+					});
+
+					google.maps.event.addListener(newmarker, 'click', function() {
+						newinfowindow.setContent(html);
+						newinfowindow.open(map, newmarker);
+					});
+					return newmarker;
+				}
+
+				console.log(new_coords)
+
+				{% for i in range(0, length_locations) %}
+    		var newmarker = createMarker(new google.maps.LatLng({{locations[i]['latitude']}}, {{locations[i]['longitude']}}), "<p>" + {{locations[i]['user_id']}} + " is the id of the user</p>");
+					gmarkers.push(newmarker);
+    	{% endfor %}
+
+				// for (var i = 0; i < new_coords.length; i ++) {
+				// 	console.log(i);
+				// 	var data = new_coords[i];
+				// 	var newmarker = new google.maps.Marker({
+				// 		position: new google.maps.LatLng (data['latitude'], data['longitude']),
+				// 		map: map,
+				// 		title: data['user_id'],
+				// 	});
+				// }
+
+				// for (var i = 0; i < new_coords.length; i++) {
+				// 	gmarkers[new_coords[i][0]] =
+				// 	createMarker(new google.maps.LatLng(new_coords[i]['latitude'], new_coords[i]['longitude']), "<p>" + new_coords[i]['user_id'] + " is the id of the user</p>");
+				// }
+
       }
     </script>
     <style type="text/css">

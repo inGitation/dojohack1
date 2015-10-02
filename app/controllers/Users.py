@@ -64,7 +64,8 @@ class Users(Controller):
 	def find_location(self):
 		print "AND WE GOT TO THE FIND LOCATION METHOD!"
 		locations = self.models['Location'].get_all_locations()
-		return self.load_view('/location/get_location.html', locations=locations)
+		length_locations = len(locations)
+		return self.load_view('/location/get_location.html', locations=locations, length_locations=length_locations)
 
 	def set_location(self):
 		user = self.models['User'].get_user_by_id(session['id'])
@@ -75,7 +76,3 @@ class Users(Controller):
 		lat_and_long = coords.split(",")
 		self.models['Location'].add_location(id, lat_and_long)
 		return redirect('/find_location')
-
-	def get(self,id,coords):
-		user = self.models['Location'].get_location(id,coords)
-		return redirect('/users/landing_page')
