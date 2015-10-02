@@ -54,7 +54,7 @@ class Users(Controller):
 		return redirect('/')
 
 	def landing_page(self):
-		return self.load_view('users/landing_page.html')
+		return self.load_view('/users/landing_page.html')
 
 	def logout(self):
 		session.pop('id')
@@ -75,3 +75,7 @@ class Users(Controller):
 		lat_and_long = coords.split(",")
 		self.models['Location'].add_location(id, lat_and_long)
 		return redirect('/find_location')
+
+	def get(self,id,coords):
+		user = self.models['Location'].get_location(id,coords)
+		return redirect('/users/landing_page')
