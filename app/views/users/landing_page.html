@@ -7,24 +7,46 @@
 		/*body{
 			background-image: url("https://d13yacurqjgara.cloudfront.net/users/52793/screenshots/750457/map_marker_pointer_icons_k.png");
 		}*/
-		body{
-			margin:100px;
-		}
+
 		#profile{
-			border :1px solid red;
+			border : 3px solid black;
 			width: 35%;
 			padding: 5px;
+			margin-left: 400px;
 		}
 		label{
 			font-size: 20px;
 		}
-		#buttons{
-			margin-top: 20px;
+		.buttons{
+			margin-top: 30px;
+			margin-left: 550px;
+		}
+		#header{
+			display: inline-block;
+
+			vertical-align: middle;
+			width: 100%;
+		}
+		#first{
+
+			display: inline-block;
+			width: 90%;
+			margin-left: 20px;
+		}
+		#logout{
+
+			display: inline-block;
 		}
 	</style>
 	<body>
-		<a href="/logout">Log Out</a>
-		<h1>Welcome, {{user['alias']}}!</h1>
+		<div id="header">
+		<div id="first">
+			<h1>Welcome, {{user['alias']}}!</h1>
+		</div>
+		<div id="logout">
+			<a href="/logout">Log Out</a>
+		</div>
+	</div>
 		<div id="profile">
 			<h2>Profile</h2>
 			<label>Alias: {{user['alias']}}</label><br>
@@ -34,10 +56,12 @@
 			<p><a href="/users/edit/{{user['id']}}">Edit Profile</p>
 			<p><a href="/users/delete/{{user['id']}}">Delete Profile</p>
 		</div>
-		<div id="buttons">
+		<div class="buttons">
 		<form action="/find_location" method="get">
 			<button type="submit">Find Locations/Events</button>
 		</form>
+	</div>
+	<div class="buttons">
 		<form action="/set_location" method="get">
 			<button type="submit">Set Your Location</button>
 		</form>
