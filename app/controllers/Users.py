@@ -4,6 +4,7 @@ class Users(Controller):
 	def __init__(self, action):
 		super(Users, self).__init__(action)
 		self.load_model('User')
+		self.load_model('Location')
 
 	def index(self):
 		if 'id' in session:
@@ -61,7 +62,9 @@ class Users(Controller):
 		return redirect('/')
 
 	def find_location(self):
-		return self.load_view('/location/get_location.html')
+		print "AND WE GOT TO THE FIND LOCATION METHOD!"
+		locations = self.models['Location'].get_all_locations()
+		return self.load_view('/location/get_location.html', locations=locations)
 
 	def set_location(self):
 		user = self.models['User'].get_user_by_id(session['id'])
@@ -69,6 +72,6 @@ class Users(Controller):
 		return self.load_view('/location/set_location.html', user=user)
 
 	def set(self, id, coords):
-		print id + " here is the IDDDDDDDD!!!!!!!!!!!!!"
-		print "And the CURRENT COORDINATES ARE:" + coords
-		return redirect('/')
+		lat_and_long = coords.split(",")
+		self.models['Location'].add_location(id, lat_and_long)
+		return redirect('/find_location')
